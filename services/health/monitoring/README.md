@@ -1,4 +1,4 @@
-# MonitoringService
+# HealthMonitoringService
 
 The `MonitoringService` is responsible for monitoring heartbeats from internal services and reacting to those that are missing.
 
