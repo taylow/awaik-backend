@@ -14,8 +14,8 @@ The choice for microservices in a project of this size was:
 
 ### Health
 
-- [MonitoringService](../services/health/monitoring/README.md)
-- [RecoveryService](../services/health/recovery/README.md)
+- [HealthMonitoringService](../services/health/monitoring/README.md)
+- [HealthRecoveryService](../services/health/recovery/README.md)
 
 ### Notification
 
