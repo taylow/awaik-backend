@@ -1,8 +1,6 @@
 package editing
 
-import (
-	"github.com/taylow/awaik-backend/services"
-)
+import "github.com/taylow/awaik-backend/services"
 
 // ServiceName holds the unique name of the service.
 const ServiceName = "NotificationService"

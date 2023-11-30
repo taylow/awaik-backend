@@ -18,6 +18,7 @@ import (
 var (
 	// ServicesToRun is a slice of service names, passed in as flags, that will be run.
 	ServicesToRun services.SliceFlag
+
 	// RunAll determines whether to run all initialised services.
 	RunAll bool
 )
