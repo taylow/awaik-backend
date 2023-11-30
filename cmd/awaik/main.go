@@ -53,6 +53,7 @@ func run() error {
 			}
 		}(service)
 		defer func(service services.Service) {
+			fmt.Println("stopping", service.Name())
 			if err := service.Stop(); err != nil {
 				fmt.Printf("error stopping service %q: %v", service.Name(), err)
 			}
