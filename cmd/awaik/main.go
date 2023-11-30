@@ -14,30 +14,30 @@ import (
 	_ "github.com/taylow/awaik-backend/services/task/scheduling"
 )
 
-// ServicesToRun holds a list of service to run.
+// ServicesToRun holds a list of service to run
 var (
-	// ServicesToRun is a slice of service names, passed in as flags, that will be run.
+	// ServicesToRun is a slice of service names, passed in as flags, that will be run
 	ServicesToRun services.SliceFlag
 
-	// RunAll determines whether to run all initialised services.
+	// RunAll determines whether to run all initialised services
 	RunAll bool
 )
 
-// init initialises all flags.
+// init initialises all flags
 func init() {
 	flag.Var(&ServicesToRun, "service", "determines which services are run - use this flag more than once for multiple services")
 	flag.BoolVar(&RunAll, "all", false, "runs all services")
 	flag.Parse()
 }
 
-// main is the entrypoint to the program.
+// main is the entrypoint to the program
 func main() {
 	if err := run(); err != nil {
 		panic(err)
 	}
 }
 
-// run runs the application with error handling.
+// run runs the application with error handling
 func run() error {
 	registeredServices := services.Services
 	fmt.Printf("Found %d service(s)\n", len(registeredServices))
