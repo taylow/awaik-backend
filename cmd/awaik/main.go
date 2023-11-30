@@ -25,7 +25,7 @@ var (
 
 // init initialises all flags.
 func init() {
-	flag.Var(&ServicesToRun, "service", "determines which services are run")
+	flag.Var(&ServicesToRun, "service", "determines which services are run - use this flag more than once for multiple services")
 	flag.BoolVar(&RunAll, "all", false, "runs all services")
 	flag.Parse()
 }
