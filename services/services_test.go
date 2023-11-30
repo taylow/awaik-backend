@@ -68,19 +68,6 @@ func resetServices() {
 	Services = make(map[string]Service)
 }
 
-// assertPanic checks if the given function panics with the expected message
-func assertPanic(t *testing.T, expectedMessage string, f func()) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("Expected panic with message '%s', but no panic occurred", expectedMessage)
-		} else if r != expectedMessage {
-			t.Errorf("Expected panic with message '%s', but got '%v'", expectedMessage, r)
-		}
-	}()
-
-	f()
-}
-
 // TestFilter tests the Filter method of the services type
 func TestFilter(t *testing.T) {
 	// Test filtering with keepAll set to true
