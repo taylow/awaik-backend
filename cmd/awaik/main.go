@@ -39,20 +39,24 @@ func main() {
 
 // run runs the application with error handling.
 func run() error {
-	services := services.Services
-	fmt.Printf("Found %d service(s)\n", len(services))
+	registeredServices := services.Services
+	fmt.Printf("Found %d service(s)\n", len(registeredServices))
 
-	filteredServices := services.Filter(services, ServicesToRun, RunAll)
+	filteredServices := registeredServices.Filter(ServicesToRun, RunAll)
 	fmt.Printf("Running %d service(s)\n", len(filteredServices))
 
 	for _, service := range filteredServices {
 		fmt.Println("running", service.Name())
-		go func() {
+		go func(service services.Service) {
 			if err := service.Start(); err != nil {
 				panic(err)
 			}
-		}()
-		defer service.Stop()
+		}(service)
+		defer func(service services.Service) {
+			if err := service.Stop(); err != nil {
+				fmt.Printf("error stopping service %q: %v", service.Name(), err)
+			}
+		}(service)
 	}
 
 	return nil

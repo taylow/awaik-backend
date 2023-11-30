@@ -27,14 +27,14 @@ func Register(name string, service Service) {
 }
 
 // Filter filters the service list based on flags.
-func (s services) Filter(allServices map[string]Service, servicesToKeep SliceFlag, keepAll bool) map[string]Service {
+func (s services) Filter(servicesToKeep SliceFlag, keepAll bool) map[string]Service {
 	if keepAll {
-		return allServices
+		return s
 	}
 
 	filteredServices := map[string]Service{}
 	for _, service := range servicesToKeep {
-		if s, ok := allServices[service]; ok {
+		if s, ok := s[service]; ok {
 			filteredServices[service] = s
 		} else {
 			fmt.Printf("could not find service %q\n", service)
