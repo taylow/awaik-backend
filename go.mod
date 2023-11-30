@@ -1,3 +1,3 @@
-module github.com/taylow/uptime-backend
+module github.com/taylow/awaik-backend
 
 go 1.21.4

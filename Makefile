@@ -1,5 +1,5 @@
 BREW_PREFIX  ?= $(shell brew --prefix)
-DATABASE_URL ?= "postgres://$(USER)@localhost/uptime_test?sslmode=disable"
+DATABASE_URL ?= "postgres://$(USER)@localhost/awaik_test?sslmode=disable"
 
 test:
 	@DATABASE_URL=$(DATABASE_URL) go test -race -timeout 1s ./...
@@ -8,7 +8,7 @@ test-setup: $(BREW_PREFIX)/bin/migrate
 	migrate -path migrations/ -database $(DATABASE_URL) up
 
 build:
-	@go build ./cmd/uptime
+	@go build ./cmd/awaik
 
 lint:
 	@golangci-lint run
