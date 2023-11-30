@@ -11,6 +11,27 @@ var Services = services{}
 // services is an alias for storing a map of service names against Service instances.
 type services map[string]Service
 
+// Filter filters the service list based on flags.
+func (s services) Filter(servicesToKeep SliceFlag, keepAll bool) services {
+	if keepAll {
+		return s
+	}
+
+	if servicesToKeep == nil {
+		return services{}
+	}
+
+	filteredServices := map[string]Service{}
+	for _, service := range servicesToKeep {
+		if s, ok := s[service]; ok {
+			filteredServices[service] = s
+		} else {
+			fmt.Printf("could not find service %q\n", service)
+		}
+	}
+	return filteredServices
+}
+
 // Register makes a service available by the provided name. If Register is called twice with the same name, no name, or if service is nil, it panics.
 func Register(name string, service Service) {
 	if name == "" {
@@ -24,23 +45,6 @@ func Register(name string, service Service) {
 	}
 	fmt.Printf("%s registered\n", name)
 	Services[name] = service
-}
-
-// Filter filters the service list based on flags.
-func (s services) Filter(servicesToKeep SliceFlag, keepAll bool) map[string]Service {
-	if keepAll {
-		return s
-	}
-
-	filteredServices := map[string]Service{}
-	for _, service := range servicesToKeep {
-		if s, ok := s[service]; ok {
-			filteredServices[service] = s
-		} else {
-			fmt.Printf("could not find service %q\n", service)
-		}
-	}
-	return filteredServices
 }
 
 // Service represents an isolated unit capable of hosing some service.
