@@ -11,6 +11,7 @@ import (
 	_ "github.com/taylow/awaik-backend/services/notification"
 	_ "github.com/taylow/awaik-backend/services/task/editing"
 	_ "github.com/taylow/awaik-backend/services/task/execution"
+	_ "github.com/taylow/awaik-backend/services/task/query"
 	_ "github.com/taylow/awaik-backend/services/task/scheduling"
 )
 
