@@ -1,4 +1,4 @@
-# RecoveryService
+# HealthRecoveryService
 
 The `HealthRecoveryService` is responsible for recovering tasks that are lost in failed `TaskSchedulerService` instances.
 

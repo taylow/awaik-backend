@@ -43,7 +43,7 @@ Awaik is a service uptime monitoring tool that periodically sends requests to se
 - [awaik](https://github.com/taylow/awaik) - Landing page
 - [awaik-frontend](https://github.com/taylow/awaik-frontend) - Frontend repository for connecting to Awaik services
 - [awaik-backend](https://github.com/taylow/awaik-backend) - Backend repository responsible for Awaik's functionality
-- [awaik-infrastructure](https://github.com/taylow/awaik-infrastructure) - Scripts and configs for Awaiks infrastructure
+- [awaik-infrastructure](https://github.com/taylow/awaik-infrastructure) - Scripts and configs for Awaik's infrastructure
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 

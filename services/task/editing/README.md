@@ -1,6 +1,6 @@
-# TaskExecutionService
+# TaskEditingService
 
-The `TaskEditingService` is responsible for CRUD operations on tasks.
+The `TaskEditingService` is responsible for C_UD operations on tasks.
 
 ## Events
 
