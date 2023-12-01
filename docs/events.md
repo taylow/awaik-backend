@@ -31,6 +31,16 @@ Contains:
 - `task_id` - UUID of the specific service sending the heartbeat
 - `timestamp` - Timestamp of when the task was recovered
 
+## Notification
+
+### NotificationSentEvent
+
+Sent when a `notification` has been sent
+
+Contains:
+
+- `notification_id` - UUID of the notification task
+
 ## Task
 
 ### TaskCreatedEvent
@@ -113,12 +123,3 @@ Contains:
 
 - `task_id` - UUID of the task to be executed
 
-## Notification
-
-### NotificationSentEvent
-
-Sent when a `notification` has been sent
-
-Contains:
-
-- `notification_id` - UUID of the notification task
