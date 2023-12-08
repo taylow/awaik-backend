@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package monitor.v1;
+
+// Monitor holds information about a specific monitor
+message Monitor {
+  // Id is the ID of the monitor
+  string id = 1;
+  // ProjectId is the ID of the project the monitor belongs to
+  string project_id = 2;
+  // Name is the friendly name of the monitor
+  string name = 3;
+  // Description is an optional description of the monitor
+  string description = 4;
+  // Status is the current status of the monitor
+  Status status = 5;
+  // Interval is a duration string or cron expression for how often the monitor is run
+  string interval = 6;
+  // Regions is a list of regions that the monitor will run in
+  repeated string regions = 7;
+  // Protocol is the protocol used to monitor the service
+  Protocol protocol = 8;
+  // ProtocolConfig is the configuration for the protocol
+  ProtocolConfig protocol_config = 9;
+  // CreatedAt is the time the monitor was created
+  string created_at = 10;
+  // UpdatedAt is the time the monitor was last updated
+  string updated_at = 11;
+  // DeletedAt is the time the monitor was deleted
+  string deleted_at = 12;
+}
+
+// Status is the current status of the monitor
+enum Status {
+  UnknownStatus = 0;
+  Pending       = 1;
+  Active        = 2;
+  Paused        = 3;
+  Deleted       = 4;
+}
+
+// Protocol is the protocol used to monitor the service
+enum Protocol {
+  UnknownProtocol   = 0;
+  HTTP              = 1;
+  ICMP              = 2;
+  Port              = 3;
+  BrowserAutomation = 4;
+}
+
+// ProtocolConfig wraps the different types of protocols that can be used to monitor a service
+message ProtocolConfig {
+  oneof protocol {
+    HTTPConfig              http               = 100;
+    ICMPConfig              icmp               = 101;
+    PortConfig              port               = 102;
+    BrowserAutomationConfig browser_automation = 103;
+  }
+}
+
+// HTTPConfig contains configs for HTTP monitoring
+// This monitor uses HTTP requests in order to monitor a service
+message HTTPConfig {
+  // Address is the address of the HTTP server being monitored
+  string address = 1;
+  // Method is the method used when making a HTTP request
+  string method = 2;
+  // Timeout is the duration of which the request will timeout
+  string timeout = 3;
+  // FollowRedirects determines if the request should automatically follow redirects
+  bool follow_redirects = 4;
+  // Headers is a list of headers to send with the request
+  map<string, string> headers = 5;
+  // BodyFormat determines what format the Body field contains
+  BodyFormat body_format = 6;
+  // Body is what will be sent with the HTTP request
+  string body = 7;
+  // Proxy is a URL-encoded proxy login string to proxy the request
+  string proxy = 9;
+  // ExpectedStatusCode is the status code that is expected from the request
+  string expected_status_code = 10;
+  // BodyAssertion is used to check if a response contains a specific value
+  string body_assertion = 11;
+}
+
+// BodyFormat determines what format the Body field contains
+enum BodyFormat {
+  None = 0;
+  Raw  = 1;
+  JSON = 2;
+  Form = 3;
+}
+
+// ICMPConfig contains configs for ICMP monitoring
+// This monitor uses ICMP pings in order to monitor services
+message ICMPConfig {
+  string address = 1;  // Address is the service being pinged
+}
+
+// Port contains configs for Port monitoring
+// This monitor monitors a specific port on a network
+message PortConfig {
+  string address = 1;  // Address is the service having it's port monitored
+  int32  port    = 2;  // Port is the port number being monitored
+}
+
+// BrowserAutomation contains configs for BrowserAutomation monitoring
+// This monitor uses browser automation in order to monitor a service
+message BrowserAutomationConfig {
+  string script = 1;  // Script is the browser automation code to be run when checking the service
+}
+
+// Overview provides an overview of a monitor
+message Overview {
+  // Uptime provides a uptime % for the given timeframe
+  float uptime = 1;
+  // UpFor is the duration the service has been up for the given timeframe
+  string up_for = 2;
+  // AverageResponseTime is the average latence in ms for the given timeframe
+  int32 avg_response_time = 3;
+
+  // TODO add region breakdown
+  // repeated RegionBreakdown region_breakdowns = 4;
+
+  // TODO add incidents
+  // Incidents is a list of incidents the service has faced
+  // repeated Incidents incidents = 5;
+}

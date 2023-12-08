@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package monitor.v1;
+
+import "proto/monitor/v1/models.proto";
+import "proto/validate/validate.proto";
+
+// MonitorCommandService provides write endpoints for monitors
+service MonitorCommandService {
+  // Create creates a new Monitor
+  rpc Create(CreateRequest) returns (CreateResponse) {}
+  // Update updates details of a monitor
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  // Delete deletes an existing monitor
+  rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+  // Pause pauses a running monitor
+  rpc Pause(PauseRequest) returns (PauseResponse) {}
+  // Resume resumes a paused monitor
+  rpc Resume(ResumeRequest) returns (ResumeResponse) {}
+}
+
+// CreateRequest is the request model for the Create endpoint
+message CreateRequest {
+  Monitor monitor = 1 [(validate.rules).message.required = true];
+}
+
+// CreateResponse is the response model for the Create endpoint
+message CreateResponse {
+  string  message = 1;
+  Monitor monitor = 2;
+}
+
+// UpdateRequest is the request model for the Update endpoint
+message UpdateRequest {
+  Monitor monitor = 1;
+}
+
+// UpdateResponse is the response model for the Update endpoint
+message UpdateResponse {
+  string  message = 1;
+  Monitor monitor = 2;
+}
+
+// DeleteRequest is the request model for the Delete endpoint
+message DeleteRequest {
+  string id = 1;
+}
+
+// DeleteResponse is the response model for the Delete endpoint
+message DeleteResponse {
+  string message = 1;
+  string id      = 2;
+}
+
+// PauseRequest is the request model for the Pause endpoint
+message PauseRequest {
+  string id = 1;
+}
+
+// PauseResponse is the response model for the Pause endpoint
+message PauseResponse {
+  string message = 1;
+  string id      = 2;
+}
+
+// ResumeRequest is the request model for the Resume endpoint
+message ResumeRequest {
+  string id = 1;
+}
+
+// ResumeResponse is the response model for the Resume endpoint
+message ResumeResponse {
+  string message = 1;
+  string id      = 2;
+}
