@@ -13,6 +13,7 @@ import (
 
 	_ "github.com/taylow/awaik-backend/services/monitor/command"
 	_ "github.com/taylow/awaik-backend/services/monitor/query"
+	_ "github.com/taylow/awaik-backend/services/test/ping"
 	// _ "github.com/taylow/awaik-backend/services/health/monitoring"
 	// _ "github.com/taylow/awaik-backend/services/health/recovery"
 	// _ "github.com/taylow/awaik-backend/services/notification"
