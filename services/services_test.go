@@ -16,6 +16,14 @@ func (s *MockService) Name() string {
 	return s.name
 }
 
+func (s *MockService) Emoji() string {
+	return "👀"
+}
+
+func (s *MockService) Address() string {
+	return ":8080"
+}
+
 func (s *MockService) Start() error {
 	return nil
 }
@@ -61,6 +69,24 @@ func TestRegister(t *testing.T) {
 			Register(mockService2.name, mockService2)
 		})
 	})
+
+	// Test registration names
+	t.Run("Registration names", func(t *testing.T) {
+		resetServices()
+		mockServiceA := &MockService{name: "MockServiceA"}
+		mockServiceB := &MockService{name: "MockServiceB"}
+		Register(mockServiceA.name, mockServiceA)
+		Register(mockServiceB.name, mockServiceB)
+
+		expectedNames := []string{mockServiceA.name, mockServiceB.name}
+		assert.Equal(t, expectedNames, Services.Names(), "Names method result is not as expected")
+
+		expectedNamesWithEmojis := []string{
+			fmt.Sprintf("%s  %s", mockServiceA.Emoji(), mockServiceA.name),
+			fmt.Sprintf("%s  %s", mockServiceB.Emoji(), mockServiceB.name),
+		}
+		assert.Equal(t, expectedNamesWithEmojis, Services.NamesWithEmojis(), "Names method result is not as expected")
+	})
 }
 
 // resetServices resets the Services map before each test
@@ -72,7 +98,7 @@ func resetServices() {
 func TestFilter(t *testing.T) {
 	// Test filtering with keepAll set to true
 	t.Run("Filter with keepAll", func(t *testing.T) {
-		s := services{
+		s := ServiceRegistry{
 			"Service1": &MockService{name: "Service1"},
 			"Service2": &MockService{name: "Service2"},
 		}
@@ -83,7 +109,7 @@ func TestFilter(t *testing.T) {
 
 	// Test filtering with specific services to keep
 	t.Run("Filter with specific services", func(t *testing.T) {
-		s := services{
+		s := ServiceRegistry{
 			"Service1": &MockService{name: "Service1"},
 			"Service2": &MockService{name: "Service2"},
 			"Service3": &MockService{name: "Service3"},
@@ -92,7 +118,7 @@ func TestFilter(t *testing.T) {
 		servicesToKeep := SliceFlag{"Service1", "Service3"}
 		filtered := s.Filter(servicesToKeep, false)
 
-		expectedFiltered := services{
+		expectedFiltered := ServiceRegistry{
 			"Service1": s["Service1"],
 			"Service3": s["Service3"],
 		}
@@ -102,7 +128,7 @@ func TestFilter(t *testing.T) {
 
 	// Test filtering with a service that does not exist
 	t.Run("Filter with non-existent service", func(t *testing.T) {
-		s := services{
+		s := ServiceRegistry{
 			"Service1": &MockService{name: "Service1"},
 			"Service2": &MockService{name: "Service2"},
 		}
@@ -110,7 +136,7 @@ func TestFilter(t *testing.T) {
 		servicesToKeep := SliceFlag{"Service1", "NonExistentService"}
 		filtered := s.Filter(servicesToKeep, false)
 
-		expectedFiltered := services{
+		expectedFiltered := ServiceRegistry{
 			"Service1": s["Service1"],
 		}
 
@@ -119,14 +145,14 @@ func TestFilter(t *testing.T) {
 
 	// Test filtering with a nil services to keep
 	t.Run("Filter with a nil services to keep", func(t *testing.T) {
-		s := services{
+		s := ServiceRegistry{
 			"Service1": &MockService{name: "Service1"},
 			"Service2": &MockService{name: "Service2"},
 		}
 
 		filtered := s.Filter(nil, false)
 
-		expectedFiltered := services{}
+		expectedFiltered := ServiceRegistry{}
 
 		assert.Equal(t, expectedFiltered, filtered)
 	})

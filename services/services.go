@@ -6,19 +6,37 @@ import (
 )
 
 // Services stores a map of service names to Service instances and is populated by each service `init()` function
-var Services = services{}
+var Services = ServiceRegistry{}
 
-// services is an alias for storing a map of service names against Service instances
-type services map[string]Service
+// ServiceRegistry is an alias for storing a map of service names against Service instances
+type ServiceRegistry map[string]Service
+
+// Names returns a slice of service names
+func (s ServiceRegistry) Names() []string {
+	names := make([]string, 0, len(s))
+	for name := range s {
+		names = append(names, name)
+	}
+	return names
+}
+
+// NamesWithEmojis returns a slice of service names prefixed with their emoji
+func (s ServiceRegistry) NamesWithEmojis() []string {
+	names := make([]string, 0, len(s))
+	for name, service := range s {
+		names = append(names, fmt.Sprintf("%s  %s", service.Emoji(), name))
+	}
+	return names
+}
 
 // Filter filters the service list based on flags
-func (s services) Filter(servicesToKeep SliceFlag, keepAll bool) services {
+func (s ServiceRegistry) Filter(servicesToKeep SliceFlag, keepAll bool) ServiceRegistry {
 	if keepAll {
 		return s
 	}
 
 	if servicesToKeep == nil {
-		return services{}
+		return ServiceRegistry{}
 	}
 
 	filteredServices := map[string]Service{}
@@ -51,6 +69,12 @@ func Register(name string, service Service) {
 type Service interface {
 	// Name returns the name of the service
 	Name() string
+
+	// Emoji returns the emoji of the service
+	Emoji() string
+
+	// Address returns the address of the service
+	Address() string
 
 	// Start starts the service
 	Start() error
