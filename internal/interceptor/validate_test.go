@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/assert"
 	testv1 "github.com/taylow/awaik-backend/internal/gen/proto/test/v1"
 	"github.com/taylow/awaik-backend/internal/gen/proto/test/v1/testv1connect"
-	"github.com/taylow/awaik-backend/services/test/ping"
+	"github.com/taylow/awaik-backend/services/test/ping/handler"
 )
 
 func startServer() testv1connect.PingServiceClient {
 	handlerOpts := []connect.HandlerOption{
 		connect.WithInterceptors(NewValidateInterceptor()),
 	}
-	return ping.StartServer(handlerOpts, nil)
+	return handler.StartServer(handlerOpts, nil)
 }
 
 func TestValidateInterceptor_Unary(t *testing.T) {
 	handlerOpts := []connect.HandlerOption{
 		connect.WithInterceptors(NewValidateInterceptor()),
 	}
-	client := ping.StartServer(handlerOpts, nil)
+	client := handler.StartServer(handlerOpts, nil)
 
 	t.Run("valid unary request that has been validated", func(t *testing.T) {
 		res, err := client.Ping(context.Background(), &connect.Request[testv1.PingRequest]{

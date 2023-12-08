@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package test.v1;
+
+import "proto/validate/validate.proto";
+
+service PingService {
+  // Ping sends a ping to the server to determine if it is alive
+  rpc Ping(PingRequest) returns (PingResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  // PingStream sends a ful-duplex stream of pings to the server
+  rpc PingStream(stream PingStreamRequest) returns (stream PingStreamResponse) {}
+  // Fail sends a request to the server that will generate an error
+  rpc Fail(FailRequest) returns (FailResponse) {}
+}
+
+// PingRequest is the request message for PingService.Ping
+message PingRequest {
+    string message = 1 [(validate.rules).string = {min_len: 1, max_len: 10}];
+}
+
+// PingResponse is the response message for PingService.Ping
+message PingResponse {
+    string message = 1;
+}
+
+// FailRequest is the request message for PingService.Fail
+message FailRequest {
+  int32 code = 1;
+}
+
+// FailResponse is the response message for PingService.Fail
+message FailResponse {}
+
+// PingStreamRequest is the request message for PingService.PingStream
+message PingStreamRequest {
+    string message = 1 [(validate.rules).string = {min_len: 1, max_len: 10}];
+}
+
+// PingStreamResponse is the response message for PingService.PingStream
+message PingStreamResponse {
+  string message = 1;
+}
