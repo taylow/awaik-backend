@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/taylow/awaik-backend/services/monitor/command/config"
+	"github.com/taylow/awaik-backend/internal/config"
 	"github.com/taylow/awaik-backend/services/monitor/command/domain"
 )
 

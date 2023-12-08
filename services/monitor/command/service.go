@@ -33,10 +33,10 @@ func init() {
 			Host: "",
 			Port: 8080,
 		},
-		MonitorRepository: &config.MonitorRepository{
+		MonitorRepository: &sharedconfig.MonitorRepository{
 			Type: "memory",
 		},
-		MessageBroker: &config.MessageBroker{
+		MessageBroker: &sharedconfig.MessageBroker{
 			Type: "noop",
 		},
 	}
