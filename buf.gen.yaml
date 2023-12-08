@@ -1,0 +1,23 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/taylow/awaik-backend/internal/gen
+plugins:
+  - plugin: go
+    out: ./internal/gen
+    opt: paths=source_relative
+  - plugin: connect-go
+    out: ./internal/gen
+    opt: paths=source_relative
+  - plugin: buf.build/bufbuild/validate-go
+    out: ./internal/gen
+    opt: paths=source_relative
+  - plugin: buf.build/bufbuild/es
+    out: ../awaik-frontend/src/gen
+    opt:
+      - target=ts
+  - plugin: buf.build/connectrpc/es:v1.1.4
+    out: ../awaik-frontend/src/gen
+    opt:
+      - target=ts

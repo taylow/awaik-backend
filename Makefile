@@ -12,9 +12,13 @@ build:
 
 lint:
 	@golangci-lint run
+	buf lint
 
 deps:
 	brew install golangci-lint golang-migrate
+
+generate:
+	buf generate
 
 $(BREW_PREFIX)/bin/migrate:
 	@brew install golang-migrate
