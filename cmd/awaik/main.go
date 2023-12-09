@@ -66,6 +66,8 @@ func run() error {
 		if err != nil {
 			return err
 		}
+	} else {
+		registeredServices = selectedServices
 	}
 
 	fmt.Printf("🏃‍♀️ starting %d service(s)\n", len(registeredServices))
