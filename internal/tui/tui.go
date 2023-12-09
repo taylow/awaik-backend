@@ -140,6 +140,7 @@ func (m model) View() string {
 // drawLogo draws the Awaik logo in ascii
 func drawLogo() string {
 	return `
+                        _
     /\               (_) |   z
    /  \__      ____ _ _| | __  z  ／l、
   / /\ \ \ /\ / / _  | | |/ /   （ﾟ､ ｡７
