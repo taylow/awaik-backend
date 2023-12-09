@@ -1,7 +1,7 @@
-<!-- <p align="center">
+<p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p> -->
+ <img width=200px height=200px src="../docs/img/awaikcat.png" alt="Awaik logo - fat cat sleeping"></a>
+</p>
 
 <h3 align="center">Awaik - Don't hesitate; await the awake state!</h3>
 
