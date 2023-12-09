@@ -3,12 +3,14 @@
  <img width=300px src="https://raw.githubusercontent.com/taylow/awaik-backend/main/docs/img/awaikcat.png" alt="Awaik logo - fat cat sleeping"></a>
 </p>
 
-<!-- ```
-    /\               (_) |   z
-   /  \__      ____ _ _| | __  z  ／l、
-  / /\ \ \ /\ / / _  | | |/ /   （ﾟ､ ｡７
- / ____ \ V  V / (_| | |   <      l、ﾞ~ヽ
-/_/    \_\_/\_/ \__,_|_|_|\_\     じしf_,)ノ
+<!-- 
+```
+                       _ _               ____             _                  _ 
+     /\               (_) |             |  _ \           | |                | | z
+    /  \__      ____ _ _| | __  ______  | |_) | __ _  ___| | _____ _ __   __| |   z  ／l、
+   / /\ \ \ /\ / / _` | | |/ / |______| |  _ < / _` |/ __| |/ / _ \ '_ \ / _` |    （ﾟ､ ｡７
+  / ____ \ V  V / (_| | |   <           | |_) | (_| | (__|   <  __/ | | | (_| |      l、ﾞ~ヽ
+ /_/    \_\_/\_/ \__,_|_|_|\_\          |____/ \__,_|\___|_|\_\___|_| |_|\__,_|      じしf_,)ノ
 ``` -->
 
 <h3 align="center">Awaik - Don't hesitate; await the awake state!</h3>
@@ -59,7 +61,30 @@ These instructions will get you a copy of the project up and running on your loc
 
 This project is currently developed on macOS, and so all instructions are written as such. They will be updated overtime, or if you want to update them sooner open a PR!
 
-**COMING SOON**
+### tui mode
+
+Awaik backend is made up of many services. As a way to keep development fun and easy, Awaik comes with an optional terminal user interface!
+
+Simply add the `--tui` flag and you will be greeted with the following:
+
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=300px src="https://raw.githubusercontent.com/taylow/awaik-backend/main/docs/img/tui.gif" alt="demo of the terminal user interface in use"></a>
+</p>
+
+```sh
+make install
+awaik --tui
+```
+
+### cli headless mode
+
+To run Awaik headless, simply run the binary with either the flag `--all` for all services, or multiple `--service [SERVICE NAME]` flags indicating the various services to host!
+
+```sh
+make install
+awaik --service MonitorCommandService --service MonitorQueryService
+```
 
 ## 🔧 Running the tests <a name = "tests"></a>
 
