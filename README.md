@@ -37,12 +37,11 @@
 - [Getting Started](#getting_started)
 - [Tests](#tests)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
+- [Deployment](#deployment)
+- [To Do](../TODO.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
-<!-- - [Contributing](../CONTRIBUTING.md) -->
-<!-- - [Deployment](#deployment) -->
-<!-- - [Usage](#usage) -->
+- [Contributing](../CONTRIBUTING.md)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -97,9 +96,9 @@ make test
 
 Tests will also automatically run on pushes and pull requests.
 
-<!-- ## 🎈 Usage <a name="usage"></a> -->
+## 🚀 Deployment <a name = "deployment"></a>
 
-<!-- ## 🚀 Deployment <a name = "deployment"></a> -->
+Deployment details will come once services and decisions are more solidified. Check back here every so often!
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
