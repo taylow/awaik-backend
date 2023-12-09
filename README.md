@@ -69,7 +69,7 @@ Simply add the `--tui` flag and you will be greeted with the following:
 
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px src="https://raw.githubusercontent.com/taylow/awaik-backend/main/docs/img/tui.gif" alt="demo of the terminal user interface in use"></a>
+ <img src="https://raw.githubusercontent.com/taylow/awaik-backend/main/docs/img/tui.gif" alt="demo of the terminal user interface in use"></a>
 </p>
 
 ```sh
