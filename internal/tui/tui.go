@@ -140,11 +140,12 @@ func (m model) View() string {
 // drawLogo draws the Awaik logo in ascii
 func drawLogo() string {
 	return `
-    /\               (_) |   
-   /  \__      ____ _ _| | __
-  / /\ \ \ /\ / / _  | | |/ /
- / ____ \ V  V / (_| | |   < 
-/_/    \_\_/\_/ \__,_|_|_|\_\`
+    /\               (_) |   z
+   /  \__      ____ _ _| | __  z  ／l、
+  / /\ \ \ /\ / / _  | | |/ /   （ﾟ､ ｡７
+ / ____ \ V  V / (_| | |   <      l、ﾞ~ヽ
+/_/    \_\_/\_/ \__,_|_|_|\_\     じしf_,)ノ
+`
 }
 
 // removeEmoji removes the emoji from a service name
