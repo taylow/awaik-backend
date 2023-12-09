@@ -1,7 +1,15 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="../docs/img/awaikcat.png" alt="Awaik logo - fat cat sleeping"></a>
+ <img width=300px src="https://raw.githubusercontent.com/taylow/awaik-backend/main/docs/img/awaikcat.png" alt="Awaik logo - fat cat sleeping"></a>
 </p>
+
+<!-- ```
+    /\               (_) |   z
+   /  \__      ____ _ _| | __  z  ／l、
+  / /\ \ \ /\ / / _  | | |/ /   （ﾟ､ ｡７
+ / ____ \ V  V / (_| | |   <      l、ﾞ~ヽ
+/_/    \_\_/\_/ \__,_|_|_|\_\     じしf_,)ノ
+``` -->
 
 <h3 align="center">Awaik - Don't hesitate; await the awake state!</h3>
 
