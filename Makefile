@@ -10,6 +10,9 @@ test-setup: $(BREW_PREFIX)/bin/migrate
 build:
 	@go build ./cmd/awaik
 
+install:
+	@go install ./cmd/awaik
+
 lint:
 	@golangci-lint run
 	buf lint
