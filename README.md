@@ -38,10 +38,10 @@
 - [Tests](#tests)
 - [Built Using](#built_using)
 - [Deployment](#deployment)
-- [To Do](../TODO.md)
+- [Todo](https://github.com/taylow/awaik-backend/tree/TODO.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
-- [Contributing](../CONTRIBUTING.md)
+- [Contributing](https://github.com/taylow/awaik-backend/tree/CONTRIBUTING.md)
 
 ## 🧐 About <a name = "about"></a>
 
