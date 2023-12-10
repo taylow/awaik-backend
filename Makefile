@@ -8,7 +8,7 @@ test-setup: $(BREW_PREFIX)/bin/migrate
 	migrate -path migrations/ -database $(DATABASE_URL) up
 
 build:
-	@go build ./cmd/awaik
+	@go build -o ./bin/awaik ./cmd/awaik
 
 install:
 	@go install ./cmd/awaik
