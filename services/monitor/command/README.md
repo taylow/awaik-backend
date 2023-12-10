@@ -1,6 +1,8 @@
 # Monitor Command Service
 
-The `MonitorCommandServices` provides write endpoints for all things monitors.
+The `MonitorCommandServices` provides write endpoints for monitors.
+
+// TODO write about the features and decisions behind `MonitorCommandService`
 
 ## Endpoints
 

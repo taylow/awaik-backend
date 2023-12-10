@@ -3,7 +3,7 @@ package message
 import (
 	"context"
 
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 )
 
 var _ domain.MessageBroker = (*noop)(nil)

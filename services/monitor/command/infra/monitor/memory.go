@@ -5,10 +5,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 )
 
-var _ domain.MonitorRepository = (*inMemoryMonitorRepository)(nil)
+var _ domain.MonitorWriteRepository = (*inMemoryMonitorRepository)(nil)
 
 // inMemoryMonitorRepository is an in-memory implementation of the monitor repository
 type inMemoryMonitorRepository struct {

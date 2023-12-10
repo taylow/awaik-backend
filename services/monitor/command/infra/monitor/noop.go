@@ -3,10 +3,10 @@ package monitor
 import (
 	"context"
 
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 )
 
-var _ domain.MonitorRepository = (*noOpMonitorRepository)(nil)
+var _ domain.MonitorWriteRepository = (*noOpMonitorRepository)(nil)
 
 // noOpMonitorRepository is a no-op implementation of the monitor repository
 type noOpMonitorRepository struct{}

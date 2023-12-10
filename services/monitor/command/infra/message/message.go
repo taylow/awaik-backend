@@ -2,7 +2,7 @@ package message
 
 import (
 	"github.com/taylow/awaik-backend/internal/config"
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 )
 
 // messageBroker is a monitor repository

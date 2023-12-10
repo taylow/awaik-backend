@@ -3,8 +3,8 @@ package config
 
 import "github.com/taylow/awaik-backend/internal/config"
 
-// Service holds the configuration for the command service
-type Service struct {
+// MonitorCommandServiceConfig holds the configuration for the command service
+type MonitorCommandServiceConfig struct {
 	// Service holds the configuration for the service
 	*config.Service
 	// Connect holds the configuration Connect handler

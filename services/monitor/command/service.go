@@ -12,7 +12,6 @@ import (
 	"github.com/taylow/awaik-backend/internal/interceptor"
 	"github.com/taylow/awaik-backend/services"
 	"github.com/taylow/awaik-backend/services/monitor/command/config"
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
 	"github.com/taylow/awaik-backend/services/monitor/command/handler"
 	"github.com/taylow/awaik-backend/services/monitor/command/infra/message"
 	"github.com/taylow/awaik-backend/services/monitor/command/infra/monitor"
@@ -24,7 +23,8 @@ const Emoji = "👀 📝"
 
 // init inisialises the service and registers it with the service registry
 func init() {
-	cfg := &config.Service{
+	// TODO load config from file/env
+	cfg := &config.MonitorCommandServiceConfig{
 		Service: &sharedconfig.Service{
 			Name:  ServiceName,
 			Emoji: Emoji,
@@ -48,9 +48,9 @@ func init() {
 
 // MonitorCommandService represents the service that edits monitors
 type MonitorCommandService struct {
-	cfg *config.Service
+	cfg *config.MonitorCommandServiceConfig
 
-	service domain.Service
+	service handler.CommandService
 	server  *http.Server
 }
 
@@ -81,8 +81,7 @@ func (s *MonitorCommandService) Start() error {
 		return err
 	}
 
-	s.service = domain.NewService(monitorRepo, messageBroker)
-	s.service = domain.NewProfiledService(s.service)
+	s.service = NewCommandService(monitorRepo, messageBroker)
 
 	serviceHandler := handler.NewConnectHandler(s.service)
 

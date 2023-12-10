@@ -1,32 +1,42 @@
-package handler
+package transformer
 
 import (
 	"time"
 
 	monitorv1 "github.com/taylow/awaik-backend/internal/gen/proto/monitor/v1"
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 )
 
-// monitorToProto converts a domain.Monitor to a monitorv1.Monitor
-func monitorToProto(monitor *domain.Monitor) *monitorv1.Monitor {
+// MonitorsToProto converts a slice of domain.Monitor to a slice of monitorv1.Monitor
+func MonitorsToProto(monitors []*domain.Monitor) []*monitorv1.Monitor {
+	protoMonitors := make([]*monitorv1.Monitor, len(monitors))
+	for i, monitor := range monitors {
+		protoMonitors[i] = MonitorToProto(monitor)
+	}
+
+	return protoMonitors
+}
+
+// MonitorToProto converts a domain.Monitor to a monitorv1.Monitor
+func MonitorToProto(monitor *domain.Monitor) *monitorv1.Monitor {
 	return &monitorv1.Monitor{
 		Id:             monitor.ID,
 		ProjectId:      monitor.ProjectID,
 		Name:           monitor.Name,
 		Description:    monitor.Description,
-		Status:         statusToProto(monitor.Status),
+		Status:         StatusToProto(monitor.Status),
 		Interval:       monitor.Interval,
 		Regions:        monitor.Regions,
-		Protocol:       protocolToProto(monitor.Protocol),
-		ProtocolConfig: protocolConfigToProto(monitor.GetProtocolConfig()),
+		Protocol:       ProtocolToProto(monitor.Protocol),
+		ProtocolConfig: ProtocolConfigToProto(monitor.GetProtocolConfig()),
 		CreatedAt:      monitor.CreatedAt.Format(time.RFC3339),
 		UpdatedAt:      monitor.UpdatedAt.Format(time.RFC3339),
 		DeletedAt:      dateOrEmpty(monitor.DeletedAt),
 	}
 }
 
-// statusToProto converts a domain.Status to a monitorv1.Status
-func statusToProto(status domain.Status) monitorv1.Status {
+// StatusToProto converts a domain.Status to a monitorv1.Status
+func StatusToProto(status domain.Status) monitorv1.Status {
 	switch status {
 	case domain.StatusPending:
 		return monitorv1.Status_Pending
@@ -41,8 +51,8 @@ func statusToProto(status domain.Status) monitorv1.Status {
 	}
 }
 
-// protocolToProto converts a domain.Protocol to a monitorv1.Protocol
-func protocolToProto(protocol domain.Protocol) monitorv1.Protocol {
+// ProtocolToProto converts a domain.Protocol to a monitorv1.Protocol
+func ProtocolToProto(protocol domain.Protocol) monitorv1.Protocol {
 	switch protocol {
 	case domain.ProtocolHTTP:
 		return monitorv1.Protocol_HTTP
@@ -57,8 +67,8 @@ func protocolToProto(protocol domain.Protocol) monitorv1.Protocol {
 	}
 }
 
-// protocolConfigToProto converts a domain.Protocol to a monitorv1.Protocol
-func protocolConfigToProto(protocol any) *monitorv1.ProtocolConfig {
+// ProtocolConfigToProto converts a domain.Protocol to a monitorv1.Protocol
+func ProtocolConfigToProto(protocol any) *monitorv1.ProtocolConfig {
 	switch p := protocol.(type) {
 	case *domain.HTTP:
 		return &monitorv1.ProtocolConfig{
@@ -69,7 +79,7 @@ func protocolConfigToProto(protocol any) *monitorv1.ProtocolConfig {
 					Timeout:            p.Timeout,
 					FollowRedirects:    p.FollowRedirects,
 					Headers:            p.Headers,
-					BodyFormat:         bodyFormatToProto(p.BodyFormat),
+					BodyFormat:         BodyFormatToProto(p.BodyFormat),
 					Body:               p.Body,
 					Proxy:              p.Proxy,
 					ExpectedStatusCode: p.ExpectedStatusCode,
@@ -107,8 +117,8 @@ func protocolConfigToProto(protocol any) *monitorv1.ProtocolConfig {
 	}
 }
 
-// bodyFormatToProto converts a domain.BodyFormat to a monitorv1.BodyFormat
-func bodyFormatToProto(bodyFormat domain.BodyFormat) monitorv1.BodyFormat {
+// BodyFormatToProto converts a domain.BodyFormat to a monitorv1.BodyFormat
+func BodyFormatToProto(bodyFormat domain.BodyFormat) monitorv1.BodyFormat {
 	switch bodyFormat {
 	case domain.JSON:
 		return monitorv1.BodyFormat_JSON
@@ -121,30 +131,30 @@ func bodyFormatToProto(bodyFormat domain.BodyFormat) monitorv1.BodyFormat {
 	}
 }
 
-// monitorFromProto converts a monitorv1.Monitor to a domain.Monitor
-func monitorFromProto(monitor *monitorv1.Monitor) *domain.Monitor {
+// MonitorFromProto converts a monitorv1.Monitor to a domain.Monitor
+func MonitorFromProto(monitor *monitorv1.Monitor) *domain.Monitor {
 	m := &domain.Monitor{
 		ID:          monitor.Id,
 		ProjectID:   monitor.ProjectId,
 		Name:        monitor.Name,
 		Description: monitor.Description,
 		Interval:    monitor.Interval,
-		Status:      statusFromProto(monitor.Status),
+		Status:      StatusFromProto(monitor.Status),
 		Regions:     monitor.Regions,
-		Protocol:    protocolFromProto(monitor.Protocol),
+		Protocol:    ProtocolFromProto(monitor.Protocol),
 		CreatedAt:   must(time.Parse(time.RFC3339, monitor.CreatedAt)),
 		UpdatedAt:   must(time.Parse(time.RFC3339, monitor.UpdatedAt)),
 		DeletedAt:   must(time.Parse(time.RFC3339, monitor.DeletedAt)),
 	}
 
-	config := protocolConfigFromProto(monitor.ProtocolConfig)
+	config := ProtocolConfigFromProto(monitor.ProtocolConfig)
 	config.Apply(m)
 
 	return m
 }
 
-// statusFromProto converts a monitorv1.Status to a domain.Status
-func statusFromProto(status monitorv1.Status) domain.Status {
+// StatusFromProto converts a monitorv1.Status to a domain.Status
+func StatusFromProto(status monitorv1.Status) domain.Status {
 	switch status {
 	case monitorv1.Status_Pending:
 		return domain.StatusPending
@@ -159,8 +169,8 @@ func statusFromProto(status monitorv1.Status) domain.Status {
 	}
 }
 
-// protocolFromProto converts a monitorv1.Protocol to a domain.Protocol
-func protocolFromProto(protocol monitorv1.Protocol) domain.Protocol {
+// ProtocolFromProto converts a monitorv1.Protocol to a domain.Protocol
+func ProtocolFromProto(protocol monitorv1.Protocol) domain.Protocol {
 	switch protocol {
 	case monitorv1.Protocol_HTTP:
 		return domain.ProtocolHTTP
@@ -175,8 +185,8 @@ func protocolFromProto(protocol monitorv1.Protocol) domain.Protocol {
 	}
 }
 
-// protocolConfigFromProto converts a monitorv1.ProtocolConfig to a domain.ProtocolConfig
-func protocolConfigFromProto(protocolConfig *monitorv1.ProtocolConfig) domain.ProtocolConfig {
+// ProtocolConfigFromProto converts a monitorv1.ProtocolConfig to a domain.ProtocolConfig
+func ProtocolConfigFromProto(protocolConfig *monitorv1.ProtocolConfig) domain.ProtocolConfig {
 	switch p := protocolConfig.Protocol.(type) {
 	case *monitorv1.ProtocolConfig_Http:
 		return &domain.HTTP{

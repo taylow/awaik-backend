@@ -2,14 +2,14 @@ package monitor
 
 import (
 	"github.com/taylow/awaik-backend/internal/config"
-	"github.com/taylow/awaik-backend/services/monitor/command/domain"
+	"github.com/taylow/awaik-backend/services/monitor/domain"
 
 	"github.com/pkg/errors"
 )
 
 // monitorRepository is a monitor repository
 type monitorRepository struct {
-	domain.MonitorRepository
+	domain.MonitorWriteRepository
 }
 
 // RepositoryFromConfig creates a monitor repository from the configuration
