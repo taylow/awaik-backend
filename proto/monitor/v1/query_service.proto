@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package monitor.v1;
+
+import "proto/monitor/v1/models.proto";
+
+// MonitorQueryService provides read endpoints for monitors
+service MonitorQueryService {
+  rpc Read(ReadRequest) returns (ReadResponse) {}
+  rpc ListByProject(ListByProjectRequest) returns (ListByProjectResponse) {}
+}
+
+message ReadRequest {
+  string id    = 1;
+}
+
+message ReadResponse {
+  string  message = 1;
+  Monitor monitor = 2;
+}
+
+message ListByProjectRequest {
+  string project_id    = 1;
+}
+
+message ListByProjectResponse {
+  string  message = 1;
+  repeated Monitor monitors = 2;
+}
