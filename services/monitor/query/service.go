@@ -30,7 +30,7 @@ func init() {
 		},
 		Connect: &sharedconfig.Connect{
 			Host: "",
-			Port: 8080,
+			Port: 7781,
 		},
 		MonitorRepository: &sharedconfig.MonitorRepository{
 			Type: "memory",
