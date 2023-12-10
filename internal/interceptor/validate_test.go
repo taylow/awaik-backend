@@ -11,18 +11,16 @@ import (
 	"github.com/taylow/awaik-backend/services/test/ping/handler"
 )
 
-func startServer() testv1connect.PingServiceClient {
+// startServerWithInterceptor starts the test server with the interceptor and returns the client
+func startServerWithInterceptor(interceptor connect.Interceptor) testv1connect.PingServiceClient {
 	handlerOpts := []connect.HandlerOption{
-		connect.WithInterceptors(NewValidateInterceptor()),
+		connect.WithInterceptors(interceptor),
 	}
 	return handler.StartServer(handlerOpts, nil)
 }
 
 func TestValidateInterceptor_Unary(t *testing.T) {
-	handlerOpts := []connect.HandlerOption{
-		connect.WithInterceptors(NewValidateInterceptor()),
-	}
-	client := handler.StartServer(handlerOpts, nil)
+	client := startServerWithInterceptor(NewValidateInterceptor())
 
 	t.Run("valid unary request that has been validated", func(t *testing.T) {
 		res, err := client.Ping(context.Background(), &connect.Request[testv1.PingRequest]{
@@ -50,7 +48,7 @@ func TestValidateInterceptor_Unary(t *testing.T) {
 
 // TODO implement stream validation and test
 // func TestValidateInterceptor_Stream(t *testing.T) {
-// 	client := startServer()
+//  client := startServerWithInterceptor(NewValidateInterceptor())
 
 // 	t.Run("valid stream request that has been validated", func(t *testing.T) {
 // 		req := client.PingStream(context.Background())
