@@ -23,6 +23,9 @@ deps:
 generate:
 	buf generate
 
+tui:
+	@go run ./cmd/awaik --tui
+
 $(BREW_PREFIX)/bin/migrate:
 	@brew install golang-migrate
 
