@@ -33,6 +33,7 @@
 ## 📝 Table of Contents
 
 - [About](#about)
+- [Goals](#Goals)
 - [Related Repositories](#related_repositories)
 - [Getting Started](#getting_started)
 - [Tests](#tests)
@@ -46,6 +47,69 @@
 ## 🧐 About <a name = "about"></a>
 
 Awaik is a service uptime monitoring tool that periodically sends requests to services, awaits a response, and checks that they are awake (get it... awaik 👈👈)
+
+## 🥅 Goals <a name = "goals"></a>
+
+Awaik is a fairly new project, but one that has been in the books for a while. It shares a nice balance between useful, real-world, challenging, yet simple in its goal.
+
+Here is a list of features Awaik intends to support, and their current status!
+
+✅ = implemented
+🚧 = in development
+⏰ = not yet started
+
+Phase 0 - design and architect the project, event flow, service composition, etc.
+
+- ✅ Microservice Structure
+  - Using a similar approach to the go `database/sql` package, services now register themselves so that the entrypoint at `cmd/awaik/main.go` can dynamically load and host services as they grow
+  - Services now have a clearly defined structure, utilising concepts from hexagonal architecture, domain-driven design, while keeping the codebase idiomatic.
+- 🚧 Event Producers/Consumers
+  - [x] Producing - Kafka integration is well under way, with the MonitorCommandService producing events with every write operation.
+  - [ ] Consuming - this is currently in development, and should be ready to PR soon!
+- 🚧 Persistence
+  - Cassandra is a bit of a beast compared to other NoSQL/document-based databases, and the way the data is structured is quite important to its performance! I still have a bit of work to do before I have the right data structure, but this is at the highest priority right now!
+- 🚧 DevOps & Community
+  - [ ] Containerisation - write dockerfiles to encapsulate build and runtime environments
+  - [ ] Repo automation - dependencies, builds, releases, etc.
+  - [ ] Repository love - setup the things that are missing
+- 😸 Fun stuff
+  - Keeping the project fun is crucial to its success, that's why I added a cute little [terminal user interface](#tui-mode) and will be spending as much time researching and learning as necessary!
+
+Phase 1 - with the groundwork done, the actual features can be implemented
+
+- Infrastructure - move from proof-of-concept/dev configs to production-ready infrastructure (see [awaik-infrastructure](https://github.com/taylow/awaik-infrastructure))
+- 🚧 Monitors - allow users to monitor services through numerous protocols (HTTP, ICMP, Browser Automation, etc.), across various regions
+  - [x] CRUD operations for monitors
+  - [ ] HTTP
+  - [ ] ICMP
+  - [ ] Port
+  - [ ] Browser Automation
+  - [ ] Multi-region
+- ⏰ Heartbeats - provide a URL for services to send a pulse to
+  - [ ] Heartbeat endpoint
+- ⏰ Status Page - display uptime, downtime, and service health on a customisable status page
+  - [ ] Editor (simplified)
+  - [ ] Preview (availability reports)
+  - [ ] Custom URL
+- ⏰ Alerts & Notifications - send alerts through various integrations when services are down
+  - [ ] Email
+  - [ ] Slack
+  - [ ] Discord
+  - [ ] Many more
+
+Phase 2 - once the core features are in, development of nice-to-have features can commence
+
+- ⏰ Users & Teams - add a user and team layer
+- ⏰ Incidents & Maintenance - allow users to report incidents, tag downtime, and schedule maintenance
+- ⏰ Public API - manage all aspects of Awaik via HTTP requests, fully documented with OpenAPI
+- ⏰ Secrets - allow users to store secrets for their monitors and heartbeats to allow the use of protected endpoints
+- ⏰ Integrations & Automation - allow Awaik to connect to various services, allowing users to define how to react to unhealthy services
+
+Phase 3 - SaaS
+
+- ⏰ Infrastructure as Code
+- ⏰ Scaling with Kubernetes
+- ⏰ Venture into the reams of hosting Awaik as a SaaS platform for those who do not with to self-host to enjoy!
 
 ## 💾 Related Repositories <a name = "related_repositories"></a>
 
